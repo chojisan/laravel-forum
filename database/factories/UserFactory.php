@@ -29,7 +29,7 @@ $factory->define('App\User', function (Faker $faker) {
 $factory->define('App\Thread', function (Faker $faker) {
     return [
         'user_id' => function () {
-            return factory(User::class)->create()->id;
+            return factory('App\User')->create()->id;
         },
         'title' => $faker->sentence,
         'body' => $faker->paragraph
@@ -39,10 +39,10 @@ $factory->define('App\Thread', function (Faker $faker) {
 $factory->define('App\Reply', function (Faker $faker) {
     return [
         'thread_id' => function () {
-            return factory(Thread::class)->create()->id;
+            return factory('App\Thread')->create()->id;
         },
         'user_id' => function () {
-            return factory(User::class)->create()->id;
+            return factory('App\User')->create()->id;
         },
         'body' => $faker->paragraph
     ];
