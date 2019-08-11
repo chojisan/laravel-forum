@@ -22,9 +22,9 @@ class ParticipateInForumTest extends TestCase
     {
         $this->be($user = factory('App\User')->create());
 
-        $thread = factory('App\Thread')->create();
+        $thread = create('App\Thread');
 
-        $reply = factory('App\Reply')->make();
+        $reply = make('App\Reply');
 
         $this->post($thread->path() . '/replies', $reply->toArray());
 
