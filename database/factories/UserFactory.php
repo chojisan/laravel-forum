@@ -16,7 +16,7 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(User::class, function (Faker $faker) {
+$factory->define('App\User', function (Faker $faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
@@ -26,7 +26,7 @@ $factory->define(User::class, function (Faker $faker) {
     ];
 });
 
-$factory->define(Thread::class, function (Faker $faker) {
+$factory->define('App\Thread', function (Faker $faker) {
     return [
         'user_id' => function () {
             return factory(User::class)->create()->id;
@@ -36,7 +36,7 @@ $factory->define(Thread::class, function (Faker $faker) {
     ];
 });
 
-$factory->define(Reply::class, function (Faker $faker) {
+$factory->define('App\Reply', function (Faker $faker) {
     return [
         'thread_id' => function () {
             return factory(Thread::class)->create()->id;
