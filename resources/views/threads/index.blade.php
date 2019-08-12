@@ -10,11 +10,18 @@
                 <div class="card-body">
                     @foreach ($threads as $thread)
                         <article>
-                            <h4>
-                                <a href="{{ $thread->path() }}">
-                                    {{ $thread->title }}
+                            <div class="d-flex bd-highlight">
+                                <h4 class="bd-highlight">
+                                    <a href="{{ $thread->path() }}">
+                                        {{ $thread->title }}
+                                    </a>
+                                </h4>
+
+                                <a href="{{ $thread->path() }}" class="ml-auto bd-highlight">
+                                    {{ $thread->replies_count }} {{ str_plural('comment', $thread->replies_count) }}
                                 </a>
-                            </h4>
+                            </div>
+                            
                             <div class="body">{{ $thread->body }}</div>
                         </article>
 
