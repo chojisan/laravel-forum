@@ -45,7 +45,7 @@
                             </a>
 
                             <ul class="dropdown-menu">
-                                @foreach (App\Channel::all() as $channel)
+                                @foreach ($channels as $channel)
                                     <li class="dropdown-item">
                                         <a href="/threads/{{ $channel->slug }}">{{ $channel->name}}</a>
                                     </li>
