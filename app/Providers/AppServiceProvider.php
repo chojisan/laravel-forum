@@ -26,7 +26,11 @@ class AppServiceProvider extends ServiceProvider
     {
         //\View::share('channels', Channel::all());
         \View::composer('*', function ($view) {
-            $view->with('channels', Channel::all());
+            $channels = \Cache::rememberForever('channel', function () {
+                return Channel::all();
+            });
+
+            $view->with('channels', $channels);
         });
     }
 }
