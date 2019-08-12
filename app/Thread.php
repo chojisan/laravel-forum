@@ -10,6 +10,15 @@ class Thread extends Model
         'user_id', 'title', 'channel_id', 'body'
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('replyCount', function ($builder) {
+            $builder->withCount('replies');
+        });
+    }
+
     public function path()
     {
         return "/threads/{$this->channel->slug}/{$this->id}";
