@@ -2,7 +2,7 @@
     <div class="card-header">
         <div class="d-flex bd-highlight">
             <div class="bd-highlight">
-                    <a href="#">{{ $reply->owner->name }}</a> said {{ $reply->created_at->diffForHumans() }}...
+                <a href="{{ route('profile', $reply->owner) }}">{{ $reply->owner->name }}</a> said {{ $reply->created_at->diffForHumans() }}...
             </div>
             
             <div class="ml-auto bd-highlight">
