@@ -14,7 +14,7 @@
             
                     <div class="card-body">
                         @foreach ($threads as $thread)
-                            <div class="card">
+                            <div class="card mb-3">
                                 <div class="card-header">
                                     <div class="d-flex bd-highlight">
                                         <div class="bd-highlight">
