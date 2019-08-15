@@ -12,16 +12,18 @@
                                 {{ $thread->title }}
                         </div>
 
-                        <div class="ml-auto bd-highlight">
-                            <form method="POST" action="{{ $thread->path() }}">
-                                {{ csrf_field() }}
-                                {{ method_field('DELETE') }}
-                
-                                <button type="submit" class="btn btn-danger">
-                                    Delete Thread
-                                </button>
-                            </form>
-                        </div>
+                        @can ('update', $thread)
+                            <div class="ml-auto bd-highlight">
+                                <form method="POST" action="{{ $thread->path() }}">
+                                    {{ csrf_field() }}
+                                    {{ method_field('DELETE') }}
+                    
+                                    <button type="submit" class="btn btn-danger">
+                                        Delete Thread
+                                    </button>
+                                </form>
+                            </div>
+                        @endcan
                     </div>
                 </div>
                 <div class="card-body">
