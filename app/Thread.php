@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Notifications\ThreadWasUpdated;
+use App\Events\ThreadHasNewReply;
 
 class Thread extends Model
 {
@@ -52,17 +53,7 @@ class Thread extends Model
     {
         $reply = $this->replies()->create($reply);
 
-        $this->subscriptions
-            ->where('user_id', '!=', $reply->user_id)
-            ->each
-            ->notify($reply);
-        /*
-        ->each(function ($sub) use ($reply) {
-            $sub->user->notify(new ThreadWasUpdated($this, $reply));
-            or
-            $sub->notify($reply);
-        });
-        */
+        event(new ThreadHasNewReply($this, $reply));
 
         return $reply;
     }
