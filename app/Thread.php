@@ -54,7 +54,7 @@ class Thread extends Model
         $reply = $this->replies()->create($reply);
 
         $this->notifySubscribers($reply);
-        
+
         //event(new ThreadHasNewReply($this, $reply));
 
         return $reply;
@@ -99,5 +99,14 @@ class Thread extends Model
     public function scopeFilter($query, $filters)
     {
         return $filters->apply($query);
+    }
+
+    public function hasUpdatesFor($user = null)
+    {
+        $user = $user ?: auth()->user();
+
+        $key = $user->visitedThreadCacheKey($this);
+
+        return $this->updated_at > cache($key);
     }
 }
