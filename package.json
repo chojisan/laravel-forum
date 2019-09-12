@@ -24,6 +24,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "@amcharts/amcharts4": "^4.5.16",
         "moment": "^2.24.0"
     }
 }
