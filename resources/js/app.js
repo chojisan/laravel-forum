@@ -35,6 +35,9 @@ Vue.component('flash', require('./components/Flash.vue').default);
 Vue.component('paginator', require('./components/Paginator.vue').default);
 Vue.component('user-notifications', require('./components/UserNotifications.vue').default);
 
+Vue.component('line-chart', require('./components/LineChart.vue').default);
+
+Vue.component('dashboard-view', require('./pages/Dashboard.vue').default);
 Vue.component('thread-view', require('./pages/Thread.vue').default);
 
 /**

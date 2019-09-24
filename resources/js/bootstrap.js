@@ -13,6 +13,11 @@ try {
     require('bootstrap');
 } catch (e) {}
 
+window.am4core = require('@amcharts/amcharts4/core');
+window.am4charts = require('@amcharts/amcharts4/charts');
+window.am4themes_animated = require('@amcharts/amcharts4/themes/animated');
+//am4core.useTheme(am4themes_animated);
+
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
  * to our Laravel back-end. This library automatically handles sending the
@@ -20,7 +25,6 @@ try {
  */
 
 window.axios = require('axios');
-
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /**
