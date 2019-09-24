@@ -25,6 +25,10 @@ class Thread extends Model
         static::deleting(function ($thread) {
             $thread->replies->each->delete();
         });
+
+        //static::addGlobalScope('latest', function (Builder $builder) {
+         //   $builder->latest();
+        //});
     }
 
     public function path()
