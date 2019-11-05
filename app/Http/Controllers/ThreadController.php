@@ -4,21 +4,24 @@ namespace App\Http\Controllers;
 
 use App\Thread;
 use App\Channel;
-use Carbon\Carbon;
 use App\Filters\ThreadFilters;
 use Illuminate\Http\Request;
-use App\Reply;
 
 class ThreadController extends Controller
 {
+    /**
+     * Create a new ThreadController instance.
+     */
     public function __construct()
     {
         $this->middleware('auth')->except(['index', 'show']);
     }
 
     /**
-     * Display a listing of the resource.
+     * Display a listing of the resource
      *
+     * @param Channel $channel
+     * @param ThreadFilters $filters
      * @return \Illuminate\Http\Response
      */
     public function index(Channel $channel, ThreadFilters $filters)
@@ -50,7 +53,7 @@ class ThreadController extends Controller
      */
     public function store(Request $request)
     {
-        request()->validate([
+        $request->validate([
             'title' => 'required|spamfree',
             'body' => 'required|spamfree',
             'channel_id' => 'required|exists:channels,id'
@@ -70,10 +73,11 @@ class ThreadController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Thread  $thread
+     * @param integer $channel
+     * @param Thread $thread
      * @return \Illuminate\Http\Response
      */
-    public function show($channelId, Thread $thread)
+    public function show($channel, Thread $thread)
     {
         if (auth()->check()) {
             auth()->user()->read($thread);
@@ -108,6 +112,7 @@ class ThreadController extends Controller
     /**
      * Remove the specified resource from storage.
      *
+     * @param integer $channel
      * @param  \App\Thread  $thread
      * @return \Illuminate\Http\Response
      */
