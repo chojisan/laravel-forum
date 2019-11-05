@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Thread;
 use App\Reply;
 use Exception;
+use Illuminate\Support\Facades\Gate;
+use App\Http\Requests\CreatePostRequest;
 
 class ReplyController extends Controller
 {
@@ -19,44 +21,9 @@ class ReplyController extends Controller
         return $thread->replies()->paginate(20);
     }
 
-    public function store($channelId, Thread $thread)
+    public function store($channelId, Thread $thread, CreatePostRequest $form)
     {
-        try {
-            request()->validate([
-                'body' => 'required|spamfree'
-            ]);
-
-            $reply = $thread->addReply([
-                'body' => request('body'),
-                'user_id' => auth()->id()
-            ]);
-        } catch (Exception $e) {
-            return response(
-                'Sorry, your reply could not be saved at this time.',
-                422
-            );
-        }
-
-        return $reply->load('owner');
-
-        /*
-        $this->validate(request(), [
-            'body' => 'required'
-        ]);
-
-        $spam->detect(request('body'));
-
-        $reply = $thread->addReply([
-            'body' => request('body'),
-            'user_id' => auth()->id()
-        ]);
-
-        if (request()->expectsJson()) {
-            return $reply->load('owner');
-        }
-
-        return back()->with('flash', 'Your reply has been left.');
-        */
+        return $form->persist($thread);
     }
 
     public function update(Reply $reply)
