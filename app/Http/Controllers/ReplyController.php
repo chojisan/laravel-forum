@@ -19,8 +19,25 @@ class ReplyController extends Controller
         return $thread->replies()->paginate(20);
     }
 
-    public function store($channelId, Thread $thread, Spam $spam)
+    public function store($channelId, Thread $thread)
     {
+        try {
+            $this->validateRepy();
+
+            $reply = $thread->addReply([
+                'body' => request('body'),
+                'user_id' => auth()->id()
+            ]);
+        } catch (\Exception $e) {
+            return response(
+                'Sorry, your reply could not be saved at this time.',
+                422
+            );
+        }
+
+        return $reply->load('owner');
+
+        /*
         $this->validate(request(), [
             'body' => 'required'
         ]);
@@ -37,12 +54,25 @@ class ReplyController extends Controller
         }
 
         return back()->with('flash', 'Your reply has been left.');
+        */
     }
 
-    public function update(Reply $reply, Spam $spam)
+    public function update(Reply $reply)
     {
         $this->authorize('update', $reply);
 
+        try {
+            $this->validateRepy();
+
+            $reply->update(request(['body']));
+        } catch (\Exception $e) {
+            return response(
+                'Sorry, your reply could not be saved at this time.',
+                422
+            );
+        }
+
+        /*
         $this->validate(request(), [
             'body' => 'required'
         ]);
@@ -50,6 +80,7 @@ class ReplyController extends Controller
         $spam->detect(request('body'));
 
         $reply->update(request(['body']));
+        */
     }
 
     public function destroy(Reply $reply)
