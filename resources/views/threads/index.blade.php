@@ -10,7 +10,7 @@
                         <div class="d-flex bd-highlight">
                             <h4 class="bd-highlight">
                                 <a href="{{ $thread->path() }}">
-                                    @if ($thread->hasUpdatesFor(auth()->user()))
+                                    @if (auth()->check() && $thread->hasUpdatesFor(auth()->user()))
                                         <strong>
                                             {{ $thread->title }}
                                         </strong>
