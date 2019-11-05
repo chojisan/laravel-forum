@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Thread;
 use App\Reply;
-use App\Inspections\Spam;
 use Exception;
 
 class ReplyController extends Controller
@@ -23,7 +22,9 @@ class ReplyController extends Controller
     public function store($channelId, Thread $thread)
     {
         try {
-            $this->validateRepy();
+            request()->validate([
+                'body' => 'required|spamfree'
+            ]);
 
             $reply = $thread->addReply([
                 'body' => request('body'),
@@ -63,7 +64,9 @@ class ReplyController extends Controller
         $this->authorize('update', $reply);
 
         try {
-            $this->validateRepy();
+            request()->validate([
+                'body' => 'required|spamfree'
+            ]);
 
             $reply->update(request(['body']));
         } catch (Exception $e) {
@@ -95,14 +98,5 @@ class ReplyController extends Controller
         }
 
         return back();
-    }
-
-    public function validateRepy()
-    {
-        $this->validate(request(), [
-            'body' => 'required'
-        ]);
-
-        resolve(Spam::class)->detect(request('body'));
     }
 }
