@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Thread;
 use App\Reply;
-use App\Spam;
+use App\Inspections\Spam;
 
 class ReplyController extends Controller
 {
@@ -39,9 +39,15 @@ class ReplyController extends Controller
         return back()->with('flash', 'Your reply has been left.');
     }
 
-    public function update(Reply $reply)
+    public function update(Reply $reply, Spam $spam)
     {
         $this->authorize('update', $reply);
+
+        $this->validate(request(), [
+            'body' => 'required'
+        ]);
+
+        $spam->detect(request('body'));
 
         $reply->update(request(['body']));
     }
@@ -57,5 +63,14 @@ class ReplyController extends Controller
         }
 
         return back();
+    }
+
+    public function validateRepy()
+    {
+        $this->validate(request(), [
+            'body' => 'required'
+        ]);
+
+        resolve(Spam::class)->detect(request('body'));
     }
 }
