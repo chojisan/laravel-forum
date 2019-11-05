@@ -4,21 +4,21 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
+require("./bootstrap");
 
-window.Vue = require('vue');
+window.Vue = require("vue");
 
-Vue.prototype.authorize = function (handler) {
+Vue.prototype.authorize = function(handler) {
     let user = window.App.user;
 
     return user ? handler(user) : false;
-}
+};
 
 window.events = new Vue();
 
-window.flash = function (message) {
-    window.events.$emit('flash', message);
-}
+window.flash = function(message, level = "success") {
+    window.events.$emit("flash", { message, level });
+};
 
 /**
  * The following block of code may be used to automatically register your
@@ -31,14 +31,17 @@ window.flash = function (message) {
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
-Vue.component('flash', require('./components/Flash.vue').default);
-Vue.component('paginator', require('./components/Paginator.vue').default);
-Vue.component('user-notifications', require('./components/UserNotifications.vue').default);
+Vue.component("flash", require("./components/Flash.vue").default);
+Vue.component("paginator", require("./components/Paginator.vue").default);
+Vue.component(
+    "user-notifications",
+    require("./components/UserNotifications.vue").default
+);
 
-Vue.component('line-chart', require('./components/LineChart.vue').default);
+Vue.component("line-chart", require("./components/LineChart.vue").default);
 
-Vue.component('dashboard-view', require('./pages/Dashboard.vue').default);
-Vue.component('thread-view', require('./pages/Thread.vue').default);
+Vue.component("dashboard-view", require("./pages/Dashboard.vue").default);
+Vue.component("thread-view", require("./pages/Thread.vue").default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -47,5 +50,5 @@ Vue.component('thread-view', require('./pages/Thread.vue').default);
  */
 
 const app = new Vue({
-    el: '#app',
+    el: "#app"
 });
