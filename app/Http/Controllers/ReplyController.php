@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Thread;
 use App\Reply;
 use App\Inspections\Spam;
+use Exception;
 
 class ReplyController extends Controller
 {
@@ -28,7 +29,7 @@ class ReplyController extends Controller
                 'body' => request('body'),
                 'user_id' => auth()->id()
             ]);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return response(
                 'Sorry, your reply could not be saved at this time.',
                 422
@@ -65,7 +66,7 @@ class ReplyController extends Controller
             $this->validateRepy();
 
             $reply->update(request(['body']));
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return response(
                 'Sorry, your reply could not be saved at this time.',
                 422
