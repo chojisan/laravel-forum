@@ -26,6 +26,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
+    @stack('styles')
 </head>
 <body>
     <div id="app">
@@ -37,5 +38,7 @@
 
         <flash message="{{ session('flash') }}"></flash>
     </div>
+
+    @stack('scripts')
 </body>
 </html>
