@@ -12,7 +12,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="d-flex bd-highlight">
-                            <img src="{{ asset($thread->creator->avatar()) }}" alt="{{ $thread->creator->name }}" height="25" width="25">
+                            <img src="{{ $thread->creator->avatar() }}" alt="{{ $thread->creator->name }}" height="25" width="25">
 
                             <div class="bd-highlight">
                                 <a href="{{ route('profile', $thread->creator) }}">{{ $thread->creator->name }}</a> posted: 

@@ -18,7 +18,7 @@
                     </form>
                 @endcan
 
-                <img src="{{ asset($profileUser->avatar_path) }}" height="50" width="50">
+                <img src="{{ $profileUser->avatar() }}" height="50" width="50">
 
                 @forelse ($activities as $date => $activity)
                     <h3 class="page-header">{{ $date }}</h3>
