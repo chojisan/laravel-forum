@@ -37,8 +37,8 @@ Vue.component(
     "user-notifications",
     require("./components/UserNotifications.vue").default
 );
-
 Vue.component("line-chart", require("./components/LineChart.vue").default);
+Vue.component("avatar-form", require("./components/AvatarForm.vue").default);
 
 Vue.component("dashboard-view", require("./pages/Dashboard.vue").default);
 Vue.component("thread-view", require("./pages/Thread.vue").default);
