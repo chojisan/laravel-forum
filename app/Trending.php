@@ -13,9 +13,7 @@ class Trending
         //    return json_decode($thread);
         //});
 
-        return [];
-
-        //return array_map('json_decode', Redis::zrevrange($this->cacheKey(), 0, 4));
+        return array_map('json_decode', Redis::zrevrange($this->cacheKey(), 0, 4));
     }
 
     public function push($thread)
